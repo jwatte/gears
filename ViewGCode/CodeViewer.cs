@@ -43,7 +43,18 @@ namespace ViewGCode
         {
             if (gCode3DControl1.Capture)
             {
-                gCode3DControl1.MouseDelta(e.Location.X - lastMousePos.X, e.Location.Y - lastMousePos.Y);
+                if (e.Button == System.Windows.Forms.MouseButtons.Right)
+                {
+                    gCode3DControl1.ZoomDelta(e.Location.Y - lastMousePos.Y);
+                }
+                else if (e.Button == System.Windows.Forms.MouseButtons.Middle)
+                {
+                    gCode3DControl1.TruckDelta(e.Location.X - lastMousePos.X, e.Location.Y - lastMousePos.Y);
+                }
+                else
+                {
+                    gCode3DControl1.MouseDelta(e.Location.X - lastMousePos.X, e.Location.Y - lastMousePos.Y);
+                }
                 lastMousePos = e.Location;
             }
         }

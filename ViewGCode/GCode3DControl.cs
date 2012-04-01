@@ -13,12 +13,16 @@ namespace ViewGCode
     {
         bool loaded = false;
         System.Timers.Timer timer;
-        float rx;
-        float ry;
-        int hiliteLineStart;
-        int hiliteLineEnd;
-        bool pending;
-        float percent;
+        float rx = 0;
+        float ry = 0;
+        int hiliteLineStart = -1;
+        int hiliteLineEnd = -1;
+        bool pending = false;
+        float percent = 0;
+        float zoom = 1;
+        int zoompos = 0;
+        float mx = 0;
+        float my = 0;
 
         public GCode3DControl()
         {
@@ -453,7 +457,7 @@ namespace ViewGCode
                 GL.LoadMatrix(ref m);
                 GL.MatrixMode(MatrixMode.Modelview);
                 GL.LoadIdentity();
-                GL.Translate(0.0f, 0.0f, -5.0f);
+                GL.Translate(-mx * zoom, -my * zoom, -5.0f * zoom);
                 GL.Rotate(ry * 180 / Math.PI, 0, 1, 0);
                 GL.Rotate(rx * 180 / Math.PI, 1, 0, 0);
                 GL.Rotate(-90, 1, 0, 0); // compensate for Y up
@@ -562,6 +566,32 @@ namespace ViewGCode
         {
             hiliteLineStart = start;
             hiliteLineEnd = end;
+            Invalidate();
+        }
+
+        internal void ZoomDelta(int dz)
+        {
+            zoompos += dz;
+            if (zoompos < -500)
+            {
+                zoompos = -500;
+            }
+            else if (zoompos > 500)
+            {
+                zoompos = 500;
+            }
+            zoom = (float)Math.Pow(0.99f, zoompos);
+            Invalidate();
+        }
+
+        internal void TruckDelta(int dx, int dy)
+        {
+            mx += dx / 100.0f;
+            my += dy / 100.0f;
+            if (mx > 10) mx = 10;
+            if (mx < -10) mx = -10;
+            if (my > 10) my = 10;
+            if (my < -10) my = -10;
             Invalidate();
         }
     }

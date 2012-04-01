@@ -125,6 +125,8 @@
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
+            this.comboFileFormat = new System.Windows.Forms.ComboBox();
+            this.label48 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -559,6 +561,8 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.label48);
+            this.groupBox2.Controls.Add(this.comboFileFormat);
             this.groupBox2.Controls.Add(this.label46);
             this.groupBox2.Controls.Add(this.label47);
             this.groupBox2.Controls.Add(this.textToothSpeed);
@@ -1092,6 +1096,30 @@
             this.saveFileDialog1.Filter = "XML Files (*.xml)|*.xml|All Files (*.*)|*.*";
             this.saveFileDialog1.Title = "Save Export Settings";
             // 
+            // comboFileFormat
+            // 
+            this.comboFileFormat.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboFileFormat.FormattingEnabled = true;
+            this.comboFileFormat.Items.AddRange(new object[] {
+            "txt",
+            "tap",
+            "nc",
+            "svg"});
+            this.comboFileFormat.Location = new System.Drawing.Point(93, 517);
+            this.comboFileFormat.Name = "comboFileFormat";
+            this.comboFileFormat.Size = new System.Drawing.Size(121, 24);
+            this.comboFileFormat.TabIndex = 70;
+            this.comboFileFormat.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
+            // 
+            // label48
+            // 
+            this.label48.AutoSize = true;
+            this.label48.Location = new System.Drawing.Point(9, 520);
+            this.label48.Name = "label48";
+            this.label48.Size = new System.Drawing.Size(78, 17);
+            this.label48.TabIndex = 71;
+            this.label48.Text = "File Format";
+            // 
             // ExportForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -1217,5 +1245,7 @@
         private System.Windows.Forms.Label labelToothMillDiameter;
         private System.Windows.Forms.TextBox textToothMillDiameter;
         private System.Windows.Forms.CheckBox checkUseToothMill;
+        private System.Windows.Forms.Label label48;
+        private System.Windows.Forms.ComboBox comboFileFormat;
     }
 }

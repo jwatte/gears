@@ -584,6 +584,7 @@ namespace Gears
             fi.directory = labelDirectory.Text;
             fi.fileName = makeFileName(pinion, false);
             fi.toothFileName = makeFileName(pinion, true);
+            fi.fileFormat = comboFileFormat.Text == "svg" ? FileFormat.svg : FileFormat.gCode;
         }
 
         internal bool getDimensions(ref Dimensions dim)
@@ -858,6 +859,18 @@ namespace Gears
         {
             SaveControls(new RegistrySave(@"\Software\Enchanted Age\Gear Generator\Export"));
         }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string pat = textBoxFileNamePattern.Text;
+            int i = pat.LastIndexOf('.');
+            if (i >= 0)
+            {
+                pat = pat.Substring(0, i);
+            }
+            pat = pat + "." + comboFileFormat.Text;
+            textBoxFileNamePattern.Text = pat;
+        }
     }
 
     public enum FaceMilling
@@ -898,6 +911,7 @@ namespace Gears
         public string directory;
         public string fileName;
         public string toothFileName;
+        public FileFormat fileFormat;
     }
 
     public struct GCodeWorkOrder
@@ -912,6 +926,12 @@ namespace Gears
         public bool useToothMill;
         public bool ok;
         public int numTeeth;
+    }
+
+    public enum FileFormat
+    {
+        gCode,
+        svg
     }
 
 }
